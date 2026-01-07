@@ -4,17 +4,34 @@ server:
 spring:
   application:
     name: gateway-service
+
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8180/realms/toolrent
           jwk-set-uri: http://localhost:8180/realms/toolrent/protocol/openid-connect/certs
+
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
+
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+
       routes:
         - id: tool-service
           uri: lb://tool-service
