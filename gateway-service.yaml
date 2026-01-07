@@ -1,0 +1,56 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/realms/toolrent
+          jwk-set-uri: http://localhost:8180/realms/toolrent/protocol/openid-connect/certs
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: tool-service
+          uri: lb://tool-service
+          predicates:
+            - Path=/api/tool/**
+
+        - id: loan-service
+          uri: lb://loan-service
+          predicates:
+            - Path=/api/loan/**
+
+        - id: client-service
+          uri: lb://client-service
+          predicates:
+            - Path=/api/client/**
+
+        - id: tariff-service
+          uri: lb://tariff-service
+          predicates:
+            - Path=/api/tariff/**
+
+        - id: kardex-service
+          uri: lb://kardex-service
+          predicates:
+            - Path=/api/kardex/**
+
+        - id: report-service
+          uri: lb://report-service
+          predicates:
+            - Path=/api/reports/**
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
