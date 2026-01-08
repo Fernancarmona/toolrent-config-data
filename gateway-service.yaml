@@ -55,7 +55,7 @@ spring:
         - id: tariff-service
           uri: lb://tariff-service
           predicates:
-            - Path=/api/tariff/**
+            - Path=/api/tariffs/**
 
         - id: kardex-service
           uri: lb://kardex-service
