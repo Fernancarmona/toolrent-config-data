@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/toolrent
+    url: jdbc:postgresql://postgres-service:5432/toolrent
     username: postgres
     password: '1234'
     driver-class-name: org.postgresql.Driver
@@ -20,6 +20,6 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://eureka-service:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${random.value}
